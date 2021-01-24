@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        input{
+            margin-top: 20px;
+            margin-left: 20px;
+            padding: 10px;
+        }
+        button{
+            margin-top: 23px;
+            margin-left: 151px;
+            border-radius: 2px;
+            background-color: lightgreen;
+            color: white;
+            outline: red;
+            border: lightgreen;
+            width: 50px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <input type="radio" name="status" value="1">停用校园卡
+            <input type="radio" name="status" value="0">恢复校园卡
+            <br>
+            <button>确定</button>
+        </div>
+    </div>
+
+    <script src="../../static/js/jquery-1.11.3.js"></script>
+    <script src="../../static/layer/layer.js"></script>
+    <script>
+        var storage = window.sessionStorage;
+        console.log(storage.getItem('updateId'));
+        let btn = document.querySelector("button");
+        let inputs = document.getElementsByTagName("input");
+        let str;
+        for(let i=0;i<inputs.length;i++) {
+            inputs[i].addEventListener('click', function () {
+                if (inputs[i].checked == true) {
+                    console.log(inputs[i].value);
+                    str = inputs[i].value;
+                }
+            });
+        }
+        console.log(str);
+        btn.addEventListener('click',function () {
+            layer.confirm('确定要修改校园卡状态吗？',function () {
+                layer.msg('已修改!',{icon:1,time:1000});
+                $.ajax({
+                    url:'../../updateStatus',
+                    type:'post',
+                    dataType:'json',
+                    data:{
+                        stuId:storage.getItem('updateId'),
+                        status:str
+                    }
+                });
+            });
+
+        })
+
+    </script>
+</body>
+</html>

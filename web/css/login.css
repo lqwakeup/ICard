@@ -1,0 +1,94 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+html,body{
+    height: 100%;
+    overflow: hidden;
+}
+.container{
+    width: 100%;
+    height: 100%;
+    background: url("../img/img4.png") no-repeat;
+    background-size: cover;
+}
+.login_box{
+    width: 400px;
+    margin: auto;
+    height: 350px;
+    text-align: center;
+    background-color: white;
+    /*border-radius: 7px;*/
+    position: relative;
+    top: 100px;
+    left: -300px;
+    opacity: 0.8;
+    box-shadow: lightblue;
+
+}
+#tip,#tip1{
+    font-size: 5px;
+    color: red;
+}
+
+.box_upper{
+    width: 400px;
+    height: 80px;
+    background-color: #1b6d85;
+}
+span{
+    font-size: 20px;
+    color: white;
+    line-height: 80px;
+    width: 200px;
+    height: 50px;
+    margin: 35px;
+}
+#loginText{
+    width: 200px;
+    height: 80px;
+}
+#loginText:hover{
+    color: lightcoral;
+    cursor: pointer;
+}
+
+#registerText{
+    width: 200px;
+    height: 80px;
+}
+#registerText:hover{
+    color: lightcoral;
+    cursor: pointer;
+}
+.box_center{
+    /*background-color: #1b6d85;*/
+    margin: auto;
+    width: 300px;
+    height: 200px;
+    border-radius: 5px;
+    position: relative;
+    top:10px;
+
+}
+input{
+    padding: 8px;
+    width: 297px;
+    height: 45px;
+    outline: lightblue;
+    position: relative;
+    top: 21px;
+    margin: 6px;
+}
+#tip{
+    position: relative;
+    top:20px;
+}
+
+#tip1{
+    position: relative;
+    top:15px;
+}
+
+
+

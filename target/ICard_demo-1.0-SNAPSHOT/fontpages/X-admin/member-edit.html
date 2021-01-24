@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+    <head>
+        <meta charset="UTF-8">
+        <title>充值</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+        <link rel="stylesheet" href="./css/font.css">
+        <link rel="stylesheet" href="./css/xadmin.css">
+        <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="./js/xadmin.js"></script>
+        <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+        <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    </head>
+    
+    <body style="height: 300px">
+        <div class="layui-fluid">
+            <div class="layui-row">
+                <form class="layui-form">
+                    <div class="layui-form-item">
+                        <label for="L_balance" class="layui-form-label">
+                            充值金额
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="L_balance" required="" lay-verify="nikename" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <button class="layui-btn" lay-filter="add" lay-submit="" onclick="check()"
+                                style="position: relative;left: 110px">
+                            充值
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script src="../../static/js/jquery-1.11.3.js"></script>
+        <script src="../../static/layer/layer.js"></script>
+        <script>
+
+            function check() {
+                $.ajax({
+                    url:'../../updateBalance',
+                    type:'post',
+                    dataType:'json',
+                    data:{
+                        balance:$('#L_balance').val()
+                    },
+                    success:function (data) {
+                        console.log(data);
+                        if(data.recode == 0){
+                            layer.alert("充值成功",{
+                                icon: 6
+                            })
+                        }else{
+                            layer.alert("校园卡已停用,充值失败",{
+                                icon:5
+                            })
+                        }
+                    }
+                })
+            }
+        </script>
+        <script>layui.use(['form', 'layer'],
+            function() {
+                $ = layui.jquery;
+                var form = layui.form,
+                layer = layui.layer;
+
+                //监听提交
+                form.on('submit(add)',
+                function(data) {
+                    console.log(data);
+                    return false;
+                });
+
+            });</script>
+        <script>var _hmt = _hmt || []; (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();</script>
+    </body>
+
+</html>

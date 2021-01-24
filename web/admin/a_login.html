@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员登陆</title>
+    <script src="../static/js/jquery-1.11.3.js"></script>
+    <link href="../static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <link href="../css/login.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="login_box">
+        <div class="box_upper">
+            <span id="loginText" @click="toLogin">{{loginMsg}}</span>
+            <span id="registerText" @click="toReg">{{registerMsg}}</span>
+        </div>
+        <div class="box_center">
+            <input type="text" id="aid" placeholder="请输入职工号">
+            <p id="tip"></p>
+            <input type="password" id="psd" placeholder="请输入密码">
+            <p id="tip1"></p>
+        </div>
+        <div class="box_bottom">
+            <button onclick="checkLogin()" class="btn btn-info"
+                    style="width: 300px;height: 45px;position: relative;top:-20px;outline: none">
+                {{submitMsg}}
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="../static/js/vue.js"></script>
+<script src="../static/layer/layer.js"></script>
+<script>
+
+
+    const vm1 = new Vue({
+        el:'.box_upper',
+        data:{
+            loginMsg: "学生登陆",
+            registerMsg:"管理员登陆"
+        },
+        methods:{
+            toReg:function () {
+                window.location.href='./a_login.html';
+            },
+            toLogin:function () {
+                window.location.href = '../fontpages/login.html';
+            }
+        }
+    });
+    const vm2 = new Vue({
+        el:'.box_bottom',
+        data:{
+            submitMsg: "登陆"
+        }
+    });
+
+    function checkLogin() {
+        // alert("test")
+        $.ajax({
+            type:'post',
+            url:'../adminLogin',
+            dataType:'json',
+            data:{
+                aid:$('#aid').val(),
+                psd:$('#psd').val()
+            },
+            success:function (data) {
+                console.log(data);
+                const id = $('#aid').val();
+                const psd = $('#psd').val();
+                // console.log(id);
+                if(id == ""){
+                    // console.log("用户名不能为空");
+                    let tip = document.getElementById("tip");
+                    tip.innerText='用户名不能为空';
+                }else{
+                    let tip = document.getElementById("tip");
+                    tip.innerText='';
+                }
+                if(psd == ""){
+                    console.log("密码不能为空");
+                    const tip = document.getElementById("tip1");
+                    tip.innerText='密码不能为空';
+                }else{
+                    const tip = document.getElementById("tip1");
+                    tip.innerText='';
+                }
+                if(data.recode == 1){
+                    layer.msg("密码错误");
+                }
+                if(data.recode == 2){
+                    layer.msg("用户不存在");
+                }
+                if(data.recode == 0){
+                    layer.msg("登陆成功");
+                    window.location.href = "./X-admin/index.html"
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>
